@@ -1,0 +1,211 @@
+drop database university;
+create database university;
+
+use university;
+
+create table student (
+snum integer primary key,
+sname varchar(32),
+major varchar(32),
+level varchar(32),
+age integer);
+
+create table faculty(
+fid integer primary key,
+fname varchar(32),
+deptid integer);
+
+
+create table class (
+name varchar(32) primary key,
+meets_at varchar(8),
+room varchar(8),
+fid integer,
+foreign key (fid) references faculty (fid));
+
+create table enrolled(
+snum integer,
+cname varchar(32),
+primary key (snum, cname),
+foreign key (snum) references student(snum),
+foreign key (cname) references class(name));
+show tables;
+select * from student;
+#1.	Find the names of all Juniors (level = JR) who are enrolled in a class taught by I. Teach.
+#we need to make connection between 4 tables 
+# student then enroll then class by fid then faculty to....
+#5/5/2021
+
+SELECT MAX(S.age) 
+from student s
+where s.major = "History"
+OR
+S.snum in (
+	Select E.snum 
+    from Enrolled E, Faculty F, Class C
+    Where 
+		E.cname = C.name AND
+        C.fid = F.fid AND
+        F.fname = "I. Teach"
+);
+
+# 3 
+select sname 
+from student 
+where snum not in 
+(
+select snum
+from enrolled 
+) ;
+#4 
+SELECT F.fname
+FROM Faculty F
+WHERE 5> (
+	Select count(E.snum)
+    FROM Enrolled E, Class C
+    WHERE E.cname = C.name AND
+		C.fid = F.fid
+);
+
+#5
+SELECT s.level, avg(s.age)
+FROM Student s
+Group by s.level;
+# 6
+SELECT S.level, AVG(S.age)
+FROM Student S
+WHERE S.level<>"JR"
+GROUP BY S.level;
+
+
+SELECT S.level, AVG(S.age)
+FROM Student S
+GROUP BY S.level
+Having S.level<>"JR";
+#same solution but different way 
+#7
+select F.fname, count(C.name)
+From faculty F, Class C
+where 
+    F.fid = C.fid
+group by F.fid, F.fname;
+#8
+
+
+
+show tables;
+select * from class;
+select * from enrolled;
+select * from student;
+select * from faculty;
+#1 find all juniors(level=JR) who are enrolled in a class 
+#taught by "I.Teach"
+#1st solution
+select s.sname from student s 
+join enrolled e on s.snum  = e.snum
+where e.cname in (
+select name from faculty f join class c on f.fid =c.fid
+where
+s.level ='jr'
+and fname = 'I. teach');
+
+select distinct s.sname from student s 
+join enrolled e on s.snum = e.snum
+where 
+e.cname in(
+select name 
+from faculty f join class c on f.fid=c.fid
+where 
+fname ='I. TEACH' and s.level ='JR');
+#2nd solution
+select distinct s.sname 
+from student s, Class c, Enrolled e, Faculty f
+where
+s.snum=e.snum and
+c.name = e.cname and
+c.fid = f.fid and
+s.level ='jr' and f.fname ='I. TEACH';
+
+
+
+#q2 find the age of the oldest student who is either a history
+#major or enroleed in a course taught by i. teach
+
+select max(s.AGE)  from student s
+where s.major ='History' or 
+s.snum in (
+select e.snum 
+from enrolled e , faculty f , class c
+where e.cname =c.name 
+and 
+c.fid = f.fid
+and 
+f.fname = 'I. teach');
+
+#Q3
+#find the names of students not enrolled in any class
+select s.sname from student s 
+where s.snum not in (
+select e.snum from enrolled e);
+
+#Q4
+# find the names of faculty for whom
+#the combined enrolled of the courses that they teach less 5.
+
+select f.fname 
+from faculty f
+where 5> (
+select count(E.snum)
+from enrolled e,class c
+where e.cname = c.name and 
+c.fid = f.fid);
+
+#Q5
+
+#for each level print the the level and the average age
+#of students for thr level
+
+select s.level , avg(s.age) from student s
+group by s.level;
+
+
+#Q6
+#for all levels except jr print the level and 
+#the average of student for that level
+select s.level  , avg(s.age) from student s
+where  s.level <>'jr'
+group by s.level;
+
+#we can also use having as it is on the same (level)
+#but if we use group by with 2 diff must use where as in 1st sol
+select s.level ,avg(s.age)
+from student s
+group by s.level
+having s.level<>'jr';
+ 
+ #Q7
+ #for each faculty member print the faculty member name and the 
+ #total number of classes taughts
+ 
+ select f.fname,count(*)  from  faculty f , class c,enrolled e
+ where 
+ f.fid = c.fid 
+ 
+ group by f.fname,f.fid;
+ 
+ #Q8
+ #find the names of all students enrolled in two classes that 
+ #meet at the same time conflict
+ select *
+ from student s,enrolled e1,class c1,enrolled e2 , class c2
+ where 
+ s.snum =e1.snum
+ and
+ e1.snum = e2.snum
+ and 
+ e1.cname = c1.name
+ and 
+ e2.cname = c2.name
+ and c1.name <c2.name #different courses
+ and
+ c1.meets_at=c2.meets_at;
