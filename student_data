@@ -1,0 +1,87 @@
+
+use university;
+
+insert into student values (1, "Laith Al-Saud", "History", "FR", 18);
+insert into student values (2, "Sean William Anthony", "Computer Science", "FR", 18);
+insert into student values (3, "Lyall Armstrong", "Islamic Thought", "FR", 19);
+insert into student values (4, "Natasha Dean Ayers", "Electrical Engineering", "FR", 20);
+insert into student values (5, "William Gary Babcock", "Business Administration", "FR", 25);
+
+
+insert into student values (6, "Kathryn Elaine Bandy", "Physics", "SO", 19);
+insert into student values (7, "Harry Bastermajian", "Computer Systems Engineering", "SO", 19);
+insert into student values (8, "Esra Birinci", "English", "SO", 28);
+insert into student values (9, "Catherine Lynn Bronson", "Civil Engineering", "SO", 20);
+insert into student values (10, "James Michael Burgin", "Business Administration", "SO", 25);
+
+insert into student values (11, "Laura Naomi Cappe", "Chemistry", "JR", 20);
+insert into student values (12, "Ted J Cohen", "Arabic Language", "JR", 20);
+insert into student values (13, "Elena Dodge Corbett", "English", "JR", 20);
+insert into student values (14, "Colleen Anne Coyle", "Civil Engineering", "JR", 22);
+insert into student values (15, "Joseph Lamar Daniels", "Business Administration", "JR", 19);
+
+
+insert into student values (16, "Ala Jabar Mohammed", "Chemistry", "SR", 21);
+insert into student values (17, "Joanne Hein", "Physics", "SR", 21);
+insert into student values (18, "Marcia Keegan", "English", "SR",  22);
+insert into student values (19, "Nina Terrey", "Civil Engineering", "SR", 22);
+insert into student values (20, "Sandra Lyons", "History", "SR", 29);
+
+insert into student values (21, "No Class Student", "CULS", "SR", 35);
+
+
+
+insert into faculty values (1, "I. Teach", 1);
+insert into faculty values (2, "A. Shaw", 1);
+insert into faculty values (3, "B. Meliyanti", 1);
+insert into faculty values (4, "T. Penney", 1);
+insert into faculty values (5, "G. Bell", 1);
+insert into faculty values (6, "J. Macdonald", 1);
+
+
+insert into class values ("COMP333", "SMW9", "R212", 3);
+insert into class values ("COMP233", "SMW9", "R128", 2);
+insert into class values ("CULS331", "SMW10", "R214", 1);
+insert into class values ("ENGL231", "TR11", "R128", 4);
+insert into class values ("BIOG132", "TR2", "R130", 5);
+insert into class values ("PHYS130", "TR2", "R215", 6);
+insert into class values ("PHYS132", "TR4", "R130", 6);
+insert into class values ("PHYS230", "SMW11", "R128", 6);
+insert into class values ("PHYS333", "SMW13", "R214", 6);
+insert into class values ("PHYS411", "SMW14", "R212", 6);
+
+
+
+
+insert into enrolled values (1, "COMP333");
+insert into enrolled values (2, "COMP333");
+insert into enrolled values (3, "COMP333");
+insert into enrolled values (4, "COMP333");
+insert into enrolled values (5, "COMP333");
+insert into enrolled values (6, "COMP333");
+
+insert into enrolled values (1, "COMP233");
+insert into enrolled values (2, "COMP233");
+insert into enrolled values (10, "BIOG132");
+insert into enrolled values (10, "PHYS130");
+
+insert into enrolled values (11, "BIOG132");
+insert into enrolled values (11, "PHYS130");
+
+insert into enrolled values (12, "BIOG132");
+insert into enrolled values (12, "PHYS130");
+
+insert into enrolled values (13, "CULS331");
+insert into enrolled values (14, "CULS331");
+insert into enrolled values (15, "CULS331");
+insert into enrolled values (16, "CULS331");
+insert into enrolled values (17, "CULS331");
+insert into enrolled values (18, "CULS331");
+
+
+insert into enrolled values (7, "PHYS132");
+insert into enrolled values (8, "PHYS132");
+
+insert into enrolled values (9, "PHYS230");
+insert into enrolled values (19, "PHYS230");
+insert into enrolled values (20, "PHYS230");
